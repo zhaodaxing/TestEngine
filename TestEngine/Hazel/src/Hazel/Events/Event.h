@@ -1,11 +1,19 @@
 #pragma once
 #include <string.h>
+#include <iostream>
+#include <sstream>
 #include <functional>
 
 #include "Hazel/Core.h"
 
-namespace Hazel
-{
+
+namespace Hazel {
+
+	// Events in Hazel are currently blocking, meaning when an event occurs it
+	// immediately gets dispatched and must be dealt with right then an there.
+	// For the future, a better strategy might be to buffer events in an event
+	// bus and process them during the "event" part of the update stage.
+
 	enum class EventType
 	{
 		None = 0,
@@ -25,60 +33,45 @@ namespace Hazel
 		EventCategoryMouseButton = BIT(4)
 	};
 
-	//Event Construction Macros
-#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() {return EventType::##type;}\
-				virtual EventType GetEventType() const override {return GetStaticType();}\
-				virtual const char* GetName() const override {return #type;}
-#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override {return category;}
+#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::type; }\
+                                virtual EventType GetEventType() const override { return GetStaticType(); }\
+                                virtual const char* GetName() const override { return #type; }
+
+#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
 	class HAZEL_API Event
 	{
 		friend class EventDispatcher;
-
 	public:
-		virtual EventType GetEventType() const = 0;
-		virtual const char* GetName() const = 0;
-		virtual int GetCategoryFlags() const = 0;
-		virtual std::string ToString() const { return GetName(); }
+		virtual EventType GetEventType() const = 0; //获取事件类型  定义在enum class EventType中的唯一值
+		virtual const char* GetName() const = 0; //获取事件的名称//方便打印日志调试
+		virtual int GetCategoryFlags() const = 0; //获取该事件的类别
+		virtual std::string ToString() const { return GetName(); } //方便打印调试
 
-		inline bool IsInCategory(EventCategory category)
+		inline bool IsInCategory(EventCategory category)//判断该事件是否属于某一类别
 		{
 			return GetCategoryFlags() & category;
 		}
-
 	protected:
-
-		bool m_handled = false;
+		bool m_Handled = false;//事件分发一次处理完标记，可用来阻止事件向下传递
 	};
 
-	// Class Event Dispatcher
+
 	class EventDispatcher
 	{
-		// Define EventFunc() Template
-		// With T& input and return bool
-		template<typename T>
-		using EventFunc = std::function<bool(T&)>;
-
 	public:
-		// Bind the event to this Dispatcher,
-		// Each Dispatcher can only Dispatch 1 Event
-		EventDispatcher(Event& event) : m_event(event) {}
-
-		// Make a template function to Dispatch the event
-		// The input parameter is a Function
-
-		template<typename T>
-		bool DispatchEvent(EventFunc<T> func)
+		EventDispatcher(Event& event)
+			: m_Event(event)
 		{
-			// Check if the Event Type of the Event bond to this dispatcher
-			// matches with the function we are using.
-			// Because if they are not the same type, then we cannot guarantee
-			// that the function is actually valid.
-			if (m_Event.GetEventType == T::GetStaticType())
+		}
+
+		// F will be deduced by the compiler
+		template<typename T, typename F>
+		bool Dispatch(const F& func)
+		{
+			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				// Whatever it is, this certain function of this Event will be called,
-				// And the function will decide whether to consume the event or not.
-				m_Event.m_handled = Func(*(T*)&m_Event);
+				m_Event.m_Handled |= func(static_cast<T&>(m_Event));
 				return true;
 			}
 			return false;
@@ -87,9 +80,10 @@ namespace Hazel
 		Event& m_Event;
 	};
 
-	inline std::ostream& operator<<(std::ostream& os, const Event& event)
+	inline std::ostream& operator<<(std::ostream& os, const Event& e)
 	{
-		return os << event.ToString();
+		return os << e.ToString();
 	}
 
 }
+

@@ -1,4 +1,7 @@
 #include "Application.h"
+#include "Events/Event.h"
+#include "Hazel/Log.h"
+#include "Hazel/Events/ApplicationEvent.h"
 
 namespace Hazel
 {
@@ -14,7 +17,13 @@ namespace Hazel
 
 	void Application::Run()
 	{
-		while(true);
+		WindowResizeEvent e(1280, 720);
+		if(e.IsInCategory(EventCategoryApplication))
+			HZ_TRACE(e);
+		if (e.IsInCategory(EventCategoryInput))
+			HZ_TRACE(e);
+
+		while (true);
 	}
 
 }
