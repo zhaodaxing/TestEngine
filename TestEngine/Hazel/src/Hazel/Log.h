@@ -1,6 +1,6 @@
 #pragma once
 
-#include <memory> // for use shared_ptr<>
+
 #include "Core.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"

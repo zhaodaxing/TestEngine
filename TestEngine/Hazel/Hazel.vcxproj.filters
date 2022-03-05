@@ -30,11 +30,13 @@
     <ClInclude Include="src\Hazel\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Hazel\Events\KeyEvent.h" />
     <ClInclude Include="src\Hazel\Events\MouseEvent.h" />
+    <ClInclude Include="src\hzpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hazel\Application.cpp">
       <Filter>src\Hazel</Filter>
     </ClCompile>
     <ClCompile Include="src\Hazel\Log.cpp" />
+    <ClCompile Include="src\hzpch.cpp" />
   </ItemGroup>
 </Project>
