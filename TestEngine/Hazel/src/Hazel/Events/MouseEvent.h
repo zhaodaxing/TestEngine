@@ -2,6 +2,7 @@
 
 #include "Event.h"
 
+
 namespace Hazel
 {
 	class MouseMovedEvent : public Event

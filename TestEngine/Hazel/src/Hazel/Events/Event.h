@@ -2,7 +2,8 @@
 
 
 #include "Hazel/Core.h"
-
+#include <iostream>
+#include <sstream>
 
 namespace Hazel {
 
