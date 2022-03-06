@@ -1,7 +1,5 @@
 workspace "Hazel"
     architecture "x64"
-
-
     configurations
     {
         "Debug",
