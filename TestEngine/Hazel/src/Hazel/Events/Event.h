@@ -50,8 +50,9 @@ namespace Hazel {
 		{
 			return GetCategoryFlags() & category;
 		}
-	protected:
 		bool m_Handled = false;//事件分发一次处理完标记，可用来阻止事件向下传递
+
+	protected:
 	};
 
 
