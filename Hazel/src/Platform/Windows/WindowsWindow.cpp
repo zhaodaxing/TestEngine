@@ -1,10 +1,12 @@
-// WindowsWindow.cpp
+ï»¿// WindowsWindow.cpp
 #include "hzpch.h"
 #include "WindowsWindow.h"
 
 #include "Hazel/Events/ApplicationEvent.h"
 #include "Hazel/Events/KeyEvent.h"
 #include "Hazel/Events/MouseEvent.h"
+
+#include "glad/glad.h"
 
 namespace Hazel {
 
@@ -15,7 +17,7 @@ namespace Hazel {
 		HZ_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	};
 
-	// ÓÎÏ·´°¿ÚµÄÊµÏÖ£¬'&'È¡Ö®Ç°¶¨ÒåµÄÊı¾İ£¬±ğÃû
+	// æ¸¸æˆçª—å£çš„å®ç°ï¼Œ'&'å–ä¹‹å‰å®šä¹‰çš„æ•°æ®ï¼Œåˆ«å
 	// step 1
 	Window* Window::Create(const WindowProps& props)
 	{
@@ -50,10 +52,12 @@ namespace Hazel {
 			s_GLFWInitialized = true;
 		}
 
-		// std::string ×ª cÓïÑÔµÄ×Ö·û´® char* Ê¹ÓÃc_str()
-		// nullptr C++11 Ö¸Õë¹Ø¼ü×Ö
+		// std::string è½¬ cè¯­è¨€çš„å­—ç¬¦ä¸² char* ä½¿ç”¨c_str()
+		// nullptr C++11 æŒ‡é’ˆå…³é”®å­—
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		HZ_CORE_ASSERT(status, "Failed to initialize Glad!");
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 

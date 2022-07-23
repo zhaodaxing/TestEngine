@@ -1,4 +1,4 @@
-// WindowsWindow.h
+ï»¿// WindowsWindow.h
 #pragma once
 
 #include "Hazel/Window.h"
@@ -6,31 +6,31 @@
 
 namespace Hazel {
 
-	// ÓÎÏ·µÄ´°¿Ú
+	// æ¸¸æˆçš„çª—å£
 	class WindowsWindow : public Window
 	{
 	public:
-		// const ·½·¨ÀïÃæ²»ÄÜĞŞ¸ÄpropsµÄÊı¾İ
+		// const æ–¹æ³•é‡Œé¢ä¸èƒ½ä¿®æ”¹propsçš„æ•°æ®
 		WindowsWindow(const WindowProps& props);
 		virtual ~WindowsWindow();
 
-		// override Õâ¸ö·½·¨´Ó¸¸ÀàÖØĞ´£¬²»¼ÓÄ¬ÈÏĞÂ¶¨ÒåµÄ·½·¨
+		// override è¿™ä¸ªæ–¹æ³•ä»çˆ¶ç±»é‡å†™ï¼Œä¸åŠ é»˜è®¤æ–°å®šä¹‰çš„æ–¹æ³•
 		void OnUpdate() override;
 
-		// inline ±àÒëÆÚÓÅ»¯£¬¼õÉÙÕ»ÄÚ´æ¿ªÏú£¬±àÒëÊ±ºò´úÂëÌæ»»
-		// const ÔÚ·½·¨µÄºóÃæ£¬Õâ¸ö·½·¨ÀïÃæµÄÊı¾İ²»ÄÜĞŞ¸ÄÀàµÄÆäËûÊı¾İ
+		// inline ç¼–è¯‘æœŸä¼˜åŒ–ï¼Œå‡å°‘æ ˆå†…å­˜å¼€é”€ï¼Œç¼–è¯‘æ—¶å€™ä»£ç æ›¿æ¢
+		// const åœ¨æ–¹æ³•çš„åé¢ï¼Œè¿™ä¸ªæ–¹æ³•é‡Œé¢çš„æ•°æ®ä¸èƒ½ä¿®æ”¹ç±»çš„å…¶ä»–æ•°æ®
 		inline unsigned int GetWidth() const override { return m_Data.Width; }
 		inline unsigned int GetHeight() const override { return m_Data.Height; }
 
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
-		// ´¹Ö±Í¬²½ÉèÖÃ£¬·ÀÖ¹³öÏÖÏÔÊ¾ËºÁÑ
+		// å‚ç›´åŒæ­¥è®¾ç½®ï¼Œé˜²æ­¢å‡ºç°æ˜¾ç¤ºæ’•è£‚
 		void SetVSync(bool enable) override;
 		bool IsVSync() const override;
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();
 	private:
-		// OpenGL ÉùÃ÷Ò»¸ö´°Ìå
+		// OpenGL å£°æ˜ä¸€ä¸ªçª—ä½“
 		GLFWwindow* m_Window;
 
 		struct WindowData

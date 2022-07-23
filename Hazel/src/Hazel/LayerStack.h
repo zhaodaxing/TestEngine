@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Hazel/Core.h"
 #include "Layer.h"
 
@@ -10,7 +10,9 @@ namespace Hazel
 		LayerStack();
 		~LayerStack();
 
-		void PushLayer(Layer* layer);
+		//!@brief lay代表普通的layer, Overlay代表离屏幕最远的layer
+		//! vector模拟栈， 所以需要两个位置， 一个头部栈顶， 一个栈尾, 所以需要PushOverlay, PushLayers
+		void PushLayer(Layer* layer); 
 		void PushOverlay(Layer* overlay);
 		void PopLayer(Layer* layer);
 		void PopOverlay(Layer* overlay);
