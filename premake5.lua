@@ -1,5 +1,6 @@
 workspace "Hazel"
     architecture "x64"
+    startproject "Sandbox"
     configurations
     {
         "Debug",
@@ -19,7 +20,7 @@ include "Hazel/vendor/GLFW"
 include "Hazel/vendor/Glad"
 include "Hazel/vendor/imgui"
 
-startproject "Sandbox"
+
 
 project "Hazel"
     location "Hazel"
