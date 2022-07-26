@@ -1,4 +1,4 @@
-// Window.h
+ï»¿// Window.h
 #pragma once
 
 #include "hzpch.h"
@@ -7,7 +7,7 @@
 #include "Hazel/Events/Event.h"
 
 namespace Hazel {
-	// ¶¨ÒåwindowÊôĞÔ
+	// å®šä¹‰windowå±æ€§
 	struct WindowProps
 	{
 		std::string Title;
@@ -22,18 +22,18 @@ namespace Hazel {
 		}
 	};
 
-	// ¶¨Òå´°¿Ú»ùÀà
+	// å®šä¹‰çª—å£åŸºç±»
 	class HAZEL_API Window
 	{
 	public:
-		// ´°¿ÚÊÂ¼ş£¬Ëõ·Å£¬À­³¶µÈ£¬C++11ĞÂÓï·¨
+		// çª—å£äº‹ä»¶ï¼Œç¼©æ”¾ï¼Œæ‹‰æ‰¯ç­‰ï¼ŒC++11æ–°è¯­æ³•
 		using EventCallbackFn = std::function<void(Event&)>;
 		virtual ~Window() {}
-		// µ±Ç°ÖÆ×÷µÄÒıÇæÊÇ»ùÓÚPC´°¿ÚÀ´ÊµÏÖ£¬×îÍâ²ãµÄÊÇ´°Ìå£¬´°Ìåupdate
-		// -> ÄÚÈİupdate -> ÓÎÏ·
+		// å½“å‰åˆ¶ä½œçš„å¼•æ“æ˜¯åŸºäºPCçª—å£æ¥å®ç°ï¼Œæœ€å¤–å±‚çš„æ˜¯çª—ä½“ï¼Œçª—ä½“update
+		// -> å†…å®¹update -> æ¸¸æˆ
 		virtual void OnUpdate() = 0;
 
-		// virtual + =0 ±íÊ¾ÕâÊÇÒ»¸ö´¿Ğé·½·¨£¬ÅÉÉúÀà±ØĞëÊµÏÖ£¬Òª²»±àÒëÎŞ·¨Í¨¹ı
+		// virtual + =0 è¡¨ç¤ºè¿™æ˜¯ä¸€ä¸ªçº¯è™šæ–¹æ³•ï¼Œæ´¾ç”Ÿç±»å¿…é¡»å®ç°ï¼Œè¦ä¸ç¼–è¯‘æ— æ³•é€šè¿‡
 		virtual unsigned int GetWidth() const = 0;
 		virtual unsigned int GetHeight() const = 0;
 
@@ -41,8 +41,8 @@ namespace Hazel {
 		virtual void SetVSync(bool enable) = 0;
 		virtual bool IsVSync() const = 0;
 
-		// ÕâÀï¶¨ÒåÒ»¸ö¾²Ì¬µÄCreate·½·¨£¬²ÎÊıÎªWindowProps£¬È«²¿Ê¹ÓÃµÄÄ¬ÈÏÊı¾İ
-		// Õâ¸ö·½·¨ÔÚWindowsWindow.cppÀïÃæÊµÏÖ
+		// è¿™é‡Œå®šä¹‰ä¸€ä¸ªé™æ€çš„Createæ–¹æ³•ï¼Œå‚æ•°ä¸ºWindowPropsï¼Œå…¨éƒ¨ä½¿ç”¨çš„é»˜è®¤æ•°æ®
+		// è¿™ä¸ªæ–¹æ³•åœ¨WindowsWindow.cppé‡Œé¢å®ç°
 		static Window* Create(const WindowProps& prop = WindowProps());
 	};
 }
