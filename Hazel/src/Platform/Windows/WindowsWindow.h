@@ -26,6 +26,8 @@ namespace Hazel {
 		// 垂直同步设置，防止出现显示撕裂
 		void SetVSync(bool enable) override;
 		bool IsVSync() const override;
+
+		virtual void* GetNativeWindow() const {return  m_Window; }
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();

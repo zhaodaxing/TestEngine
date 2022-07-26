@@ -41,6 +41,7 @@ namespace Hazel {
 		virtual void SetVSync(bool enable) = 0;
 		virtual bool IsVSync() const = 0;
 
+		virtual void* GetNativeWindow() const = 0;
 		// 这里定义一个静态的Create方法，参数为WindowProps，全部使用的默认数据
 		// 这个方法在WindowsWindow.cpp里面实现
 		static Window* Create(const WindowProps& prop = WindowProps());
