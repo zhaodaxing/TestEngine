@@ -4,7 +4,7 @@
 #include "glad/glad.h"
 namespace Hazel {
 
-	Shader::Shader(const std::string& vertexSource, const std::string& fragmentSource)
+	Shader::Shader(const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
 
 		// Create an empty vertex shader handle
@@ -12,7 +12,7 @@ namespace Hazel {
 
 		// Send the vertex shader source code to GL
 		// Note that std::string's .c_str is NULL character terminated.
-		const GLchar* source = (const GLchar*)vertexSource.c_str();
+		const GLchar* source = vertexSrc.c_str();
 		glShaderSource(vertexShader, 1, &source, 0);
 
 		// Compile the vertex shader
@@ -32,10 +32,8 @@ namespace Hazel {
 			// We don't need the shader anymore.
 			glDeleteShader(vertexShader);
 
-			HZ_CORE_ASSERT("{0}", infoLog.data());
+			HZ_CORE_ERROR("{0}", infoLog.data());
 			HZ_CORE_ASSERT(false, "Vertex shader compilation failure!");
-
-			// In this simple program, we'll just leave
 			return;
 		}
 
@@ -44,7 +42,7 @@ namespace Hazel {
 
 		// Send the fragment shader source code to GL
 		// Note that std::string's .c_str is NULL character terminated.
-		source = (const GLchar*)fragmentSource.c_str();
+		source = fragmentSrc.c_str();
 		glShaderSource(fragmentShader, 1, &source, 0);
 
 		// Compile the fragment shader
@@ -65,10 +63,8 @@ namespace Hazel {
 			// Either of them. Don't leak shaders.
 			glDeleteShader(vertexShader);
 
-			// Use the infoLog as you see fit.
-			HZ_CORE_ASSERT("{0}", infoLog.data());
+			HZ_CORE_ERROR("{0}", infoLog.data());
 			HZ_CORE_ASSERT(false, "Fragment shader compilation failure!");
-			// In this simple program, we'll just leave
 			return;
 		}
 
@@ -103,10 +99,8 @@ namespace Hazel {
 			glDeleteShader(vertexShader);
 			glDeleteShader(fragmentShader);
 
-			// Use the infoLog as you see fit.
-			HZ_CORE_ASSERT("{0}", infoLog.data());
+			HZ_CORE_ERROR("{0}", infoLog.data());
 			HZ_CORE_ASSERT(false, "Shader link failure!");
-			// In this simple program, we'll just leave
 			return;
 		}
 
