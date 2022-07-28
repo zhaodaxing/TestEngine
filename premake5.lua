@@ -25,8 +25,10 @@ include "Hazel/vendor/imgui"
 
 project "Hazel"
     location "Hazel"
-    kind "SharedLib" -- DynamicLib
+    kind "StaticLib" 
     language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -69,13 +71,8 @@ project "Hazel"
         {
             "HZ_PLATFORM_WINDOWS",
             "HZ_BUILD_DLL",
-            "GLFW_INCLUDE_NONE"
-        }
-
-
-        postbuildcommands -- build后的自定义命令
-        {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox") --拷贝引擎dll库到sanbox.exe的同一目录下去
+            "GLFW_INCLUDE_NONE",
+            "_CRT_SECURE_NO_WARNINGS"
         }
 
     filter "configurations:Debug"
